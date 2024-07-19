@@ -39,6 +39,7 @@ jobs:
       with:
         ruby-version: 2.6
         rubygems: latest
+        bundler-cache: false
 
     - name: Build and Deploy
       run: |
