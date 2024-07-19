@@ -4,7 +4,7 @@ test:
 
 deploy-android:
     @echo "╠ Sending Android Build to Closed Testing..."
-	cd android && bundle install
+    cd android && bundle install
     cd android/fastlane && bundle exec fastlane playstore
 
 deploy-ios:
@@ -13,4 +13,4 @@ deploy-ios:
 
 deploy: test deploy-android deploy-ios
 
-.PHONY: test deploy-android deploy-ios
+.PHONY: test deploy-android deploy-ios deploy
