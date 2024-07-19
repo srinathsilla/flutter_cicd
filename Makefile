@@ -4,10 +4,7 @@ test:
 
 deploy-android:
 	@echo "╠ Sending Android Build to Closed Testing..."
-	rm Gemfile.lock
-	gem update --system
-	gem install bundler
-	cd android && bundle clean --force && bundle install
+	cd android && bundle install
 	cd android/fastlane && bundle exec fastlane playstore
 
 deploy-ios:
