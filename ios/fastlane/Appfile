@@ -1,0 +1,16 @@
+app_identifier "edu.gmu.casbbi.fluttercicd"       # The bundle identifier of your app
+
+apple_dev_portal_id "iconnect@eabsentee.org"  # Apple Developer Account
+itunes_connect_id "iconnect@eabsentee.org"     # App Store Connect Account
+
+# To select a team for App Store Connect use
+# Login with your app store connect account and follow this link https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/user/detail
+# to get the itc_team_id and name. Can be found under "contentProviderId" and "name" respectively
+itc_team_name "Virginia Vote Absentee"
+itc_team_id "126290398"     # App Store Connect Team ID
+
+# Found on membership details box on apple developer account
+team_id "34VLR2GDR3" # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

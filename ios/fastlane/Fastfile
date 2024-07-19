@@ -1,0 +1,56 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# For fastlane apple app specific credentails check notes
+
+default_platform(:ios)
+
+platform :ios do
+
+  desc "Set Info.plist Version and Build Number"
+  lane :set_full_version do
+    version = flutter_version()
+
+    increment_version_number(version_number: version['version_name'])
+
+    increment_build_number(build_number: version['version_code'])
+  end
+
+
+  desc "Deploying beta build"
+  lane :appstoreconnect do
+
+    set_full_version()
+
+    # build app expects that an archive directory and ipa are already created in the folder due to the parameter skip_build_archive: true
+    # Flutter docs suggests to run the "flutter build ipa" command in the CI script
+    # If I run this lane without running above ipa command, then I will get a "Archive invalid" error.
+
+    build_app(
+      # skip_build_archive: true,
+      archive_path: "../build/ios/archive/Runner.xcarchive",
+      scheme: "Runner",
+      workspace: "Runner.xcworkspace",
+      export_options: "./exportOptions.plist",
+      output_directory: "../build/ios/Runner",
+      )
+    
+    upload_to_testflight(
+      api_key_path: "/Users/ssilla2/code/flutter_projects/flutter_cicd/app-store-connect-api-creds.json",
+      ipa: '../build/ios/Runner/Runner.ipa',
+      skip_waiting_for_build_processing: true,
+    )
+  end
+end

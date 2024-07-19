@@ -13,6 +13,9 @@ doc/api/
 
 # dotenv environment variables file
 .env*
+iconnect-sud-fastlane-creds.json
+app-store-connect-api-creds.json
+android/key.properties
 
 # Avoid committing generated Javascript files:
 *.dart.js
