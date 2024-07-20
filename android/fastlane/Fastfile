@@ -37,7 +37,7 @@ platform :android do
     )
     upload_to_play_store(
       track: 'internal', # Specifies the internal testing track
-      # aab: '../build/app/outputs/bundle/release/app-release.aab'
+      aab: '../build/app/outputs/bundle/release/app-release.aab'
     ) # Uploads the APK built in the gradle step above and releases it to all production users
   end
 
