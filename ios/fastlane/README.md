@@ -23,6 +23,22 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Set Info.plist Version and Build Number
 
+### ios certificates
+
+```sh
+[bundle exec] fastlane ios certificates
+```
+
+Get certificates
+
+### ios generate_new_certificates
+
+```sh
+[bundle exec] fastlane ios generate_new_certificates
+```
+
+Generate new certificates
+
 ### ios appstoreconnect
 
 ```sh

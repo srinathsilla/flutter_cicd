@@ -16,6 +16,7 @@ doc/api/
 iconnect-sud-fastlane-creds.json
 app-store-connect-api-creds.json
 android/key.properties
+ios/fastlane/.env.default
 
 # Avoid committing generated Javascript files:
 *.dart.js

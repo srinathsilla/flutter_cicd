@@ -9,6 +9,7 @@ deploy-android:
 
 deploy-ios:
 	@echo "╠ Sending iOS Build to TestFlight..."
+	cd ios && bundle install
 	cd ios/fastlane && bundle exec fastlane appstoreconnect
 
 deploy: test deploy-android deploy-ios

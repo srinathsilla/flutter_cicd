@@ -28,16 +28,59 @@ platform :ios do
     increment_build_number(build_number: version['version_code'])
   end
 
+  desc "Get certificates"
+  lane :certificates do
+    sync_code_signing(
+      type: "development",
+      app_identifier: ['edu.gmu.casbbi.fluttercicd'],
+      force_for_new_devices: true,
+      readonly: true
+    )
+
+    # You can repeate the sync_code_signing with other types of certificates such as appstore and adhoc
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: 'edu.gmu.casbbi.fluttercicd',
+      readonly: true
+    )
+  end
+
+  desc "Generate new certificates"
+  lane :generate_new_certificates do
+    sync_code_signing(
+      type: "development",
+      app_identifier: ['edu.gmu.casbbi.fluttercicd'],
+      force_for_new_devices: true,
+      readonly: false
+    )
+    
+    # You can repeate the sync_code_signing with other types of certificates such as appstore and adhoc
+    # Adding sync_code_signing for appstore/distribution
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: ['edu.gmu.casbbi.fluttercicd'],
+      readonly: false
+    )
+
+  end
+
 
   desc "Deploying beta build"
   lane :appstoreconnect do
 
     set_full_version()
 
+    setup_ci
+
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: 'edu.gmu.casbbi.fluttercicd',
+      readonly: true
+    )
+
     # build app expects that an archive directory and ipa are already created in the folder due to the parameter skip_build_archive: true
     # Flutter docs suggests to run the "flutter build ipa" command in the CI script
     # If I run this lane without running above ipa command, then I will get a "Archive invalid" error.
-
     build_app(
       # skip_build_archive: true,
       archive_path: "../build/ios/archive/Runner.xcarchive",
@@ -46,9 +89,16 @@ platform :ios do
       export_options: "./exportOptions.plist",
       output_directory: "../build/ios/Runner",
       )
+
+      app_store_connect_api_key(
+        key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
+        issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
+        key_content: ENV['APP_STORE_CONNECT_API_KEY_BASE64'],
+        is_key_content_base64: true,
+        in_house: false, # if it is enterprise or not
+    )
     
     upload_to_testflight(
-      api_key_path: "/Users/ssilla2/code/flutter_projects/flutter_cicd/app-store-connect-api-creds.json",
       ipa: '../build/ios/Runner/Runner.ipa',
       skip_waiting_for_build_processing: true,
     )
