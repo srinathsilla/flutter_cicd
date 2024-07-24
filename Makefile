@@ -4,12 +4,14 @@ test:
 
 deploy-android:
 	@echo "╠ Sending Android Build to Closed Testing..."
-	bundle install
+	gem install bundler
+	cd android && bundle install && bundle update
 	cd android/fastlane && bundle exec fastlane playstore
 
 deploy-ios:
 	@echo "╠ Sending iOS Build to TestFlight..."
-	bundle install
+	gem install bundler
+	cd android && bundle install && bundle update
 	cd ios/fastlane && bundle exec fastlane appstoreconnect
 
 deploy: test deploy-android deploy-ios
