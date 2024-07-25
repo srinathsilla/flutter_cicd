@@ -75,7 +75,9 @@ platform :ios do
     sync_code_signing(
       type: "appstore",
       app_identifier: 'edu.gmu.casbbi.fluttercicd',
-      readonly: true
+      git_url: 'git@github.com:srinathsilla/fastlane_cicd_match.git',
+      readonly: true,
+      username: 'iconnect@eabsentee.org'
     )
 
     # build app expects that an archive directory and ipa are already created in the folder due to the parameter skip_build_archive: true
