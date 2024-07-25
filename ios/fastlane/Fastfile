@@ -75,8 +75,8 @@ platform :ios do
     sync_code_signing(
       type: "appstore",
       app_identifier: 'edu.gmu.casbbi.fluttercicd',
-      git_url: 'git@github.com:srinathsilla/fastlane_cicd_match.git',
-      git_basic_authorization: ENV['MATCH_GIT_BASIC_AUTHORIZATION']
+      git_url: 'https://github.com/srinathsilla/fastlane_cicd_match.git',
+      git_basic_authorization: ENV['MATCH_GIT_BASIC_AUTHORIZATION'],
       readonly: true,
       username: 'iconnect@eabsentee.org'
     )
