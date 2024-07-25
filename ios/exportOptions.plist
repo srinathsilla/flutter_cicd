@@ -11,7 +11,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>edu.gmu.casbbi.fluttercicd</key>
-		<string>fluttercicd Prod</string>
+		<string>match AppStore edu.gmu.casbbi.fluttercicd</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>Apple Distribution</string>
