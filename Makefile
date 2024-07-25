@@ -9,7 +9,7 @@ deploy-android:
 
 deploy-ios:
 	@echo "╠ Sending iOS Build to TestFlight..."
-	cd ios && rm -f Gemfile.lock && gem update --system && gem install bundler -v 2.5.15 && bundle install
+	cd ios && bundle install
 	cd ios/fastlane && bundle exec fastlane appstoreconnect
 
 deploy: test deploy-android deploy-ios
