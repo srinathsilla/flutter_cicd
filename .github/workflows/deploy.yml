@@ -109,7 +109,7 @@ jobs:
       - name: Create Tag and Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
           title: ${{ env.VERSION_NAME }}
           automatic_release_tag: ${{ env.VERSION_NAME }}
           draft: false
