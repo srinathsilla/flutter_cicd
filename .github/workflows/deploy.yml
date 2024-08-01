@@ -30,6 +30,14 @@ jobs:
       run: |
         echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
 
+    - name: Extract version from pubspec.yaml
+      id: extract_version
+      run: |
+          VERSION_NAME=$(grep 'version:' pubspec.yaml | sed 's/version: \(.*\)+.*/\1/')
+          VERSION_CODE=$(grep 'version:' pubspec.yaml | sed 's/.*+\(.*\)/\1/')
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+
     - name: Set up Play Store Secret
       run: |
         echo "${{ secrets.PLAY_STORE_SECRET }}" | base64 --decode > android/play_store_secret.json
@@ -42,6 +50,9 @@ jobs:
         bundler-cache: false
 
     - name: Build and Deploy
+      env:
+        FLUTTER_VERSION_NAME: ${{ env.VERSION_NAME }}
+        FLUTTER_VERSION_CODE: ${{ env.VERSION_CODE }}
       run: |
         flutter pub get
         make deploy-android
